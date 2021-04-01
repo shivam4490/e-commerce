@@ -7,18 +7,18 @@ const Header = () => {
     <header>
       <Navbar bg='dark' varient='light' expand='lg' collapseOnSelect>
         <Container>
-          <LinkContainer to='/'>
+          <LinkContainer to='/' style={{ color: 'white' }}>
             <Navbar.Brand>E-Shop</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ml-auto'>
-              <LinkContainer to='/cart'>
+              <LinkContainer to='/cart' style={{ color: 'white' }}>
                 <Nav.Link>
                   <i className='fas fa-shopping-cart'></i>Cart
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to='/login'>
+              <LinkContainer to='/login' style={{ color: 'white' }}>
                 <Nav.Link>
                   <i className='fas fa-user' style={{ marginLeft: 15 }}></i>Sign
                   In
