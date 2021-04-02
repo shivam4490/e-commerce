@@ -32,9 +32,9 @@ const Header = () => {
 
               {userInfo ? (
                 <NavDropdown
+                  style={{ color: 'white' }}
                   title={userInfo.name}
                   id='username'
-                  style={{ color: 'white' }}
                 >
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
