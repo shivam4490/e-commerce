@@ -1,10 +1,13 @@
 const express = require('express')
 const User = require('../models/UserModel')
 const router = require('../routes/productRoute')
+const generateToken = require('../utils/generateToken')
 
 //POST /api/users/login
 const authUser = async (req, res) => {
   const { email, password } = req.body
+
+  const user = await User.findOne({ email })
 
   if (user && (await user.matchPassword(password))) {
     res.json({
@@ -20,4 +23,4 @@ const authUser = async (req, res) => {
   }
 }
 
-module.exports = authUser
+module.exports.authUser = authUser
