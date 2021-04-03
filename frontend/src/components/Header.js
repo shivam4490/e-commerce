@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='dark' varient='light' expand='lg' collapseOnSelect>
+      <Navbar bg='dark' varient='dark' expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/' style={{ color: 'white' }}>
             <Navbar.Brand>E-Shop</Navbar.Brand>
@@ -32,12 +32,14 @@ const Header = () => {
 
               {userInfo ? (
                 <NavDropdown
-                  style={{ color: 'white' }}
                   title={userInfo.name}
                   id='username'
+                  style={{ color: 'white' }}
                 >
                   <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                    <NavDropdown.Item style={{ color: 'white' }}>
+                      Profile
+                    </NavDropdown.Item>
                   </LinkContainer>
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
