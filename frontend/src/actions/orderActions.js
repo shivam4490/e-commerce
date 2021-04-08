@@ -120,13 +120,9 @@ export const payOrder = (orderId, paymentResult) => async (
       payload: data,
     })
   } catch (error) {
-    const message = error.response
-    if (message === 'Not authorized, token failed') {
-      dispatch(logout())
-    }
     dispatch({
       type: ORDER_PAY_FAIL,
-      payload: message,
+      payload: error.response,
     })
   }
 }

@@ -25,9 +25,9 @@ app.use('/api/users', userRoute)
 app.use('/api/orders', orderRoute)
 app.use('/api/uploads', uploadRoute)
 
-app.get('/api/config/paypal', (req, res) => {
+app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
-})
+)
 
 const folder = path.resolve()
 app.use('/uploads', express.static(path.join(folder, '/uploads')))
