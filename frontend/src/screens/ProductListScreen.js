@@ -15,7 +15,7 @@ const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
 
   const productList = useSelector((state) => state.productList)
-  const { loading, error, products, page, pages } = productList
+  const { loading, error, products } = productList
 
   const productDelete = useSelector((state) => state.productDelete)
   const {
@@ -45,16 +45,9 @@ const ProductListScreen = ({ history, match }) => {
     if (successCreate) {
       history.push(`/admin/product/${createdProduct._id}/edit`)
     } else {
-      dispatch(listProducts('', pageNumber))
+      dispatch(listProducts())
     }
-  }, [
-    dispatch,
-    history,
-    userInfo,
-    successDelete,
-    successCreate,
-    createdProduct,
-  ])
+  }, [dispatch, history, userInfo, successDelete, createdProduct])
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
