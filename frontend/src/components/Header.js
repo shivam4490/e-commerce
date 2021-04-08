@@ -32,9 +32,10 @@ const Header = () => {
 
               {userInfo ? (
                 <NavDropdown
-                  title={userInfo.name}
+                  title={
+                    <span style={{ color: 'white' }}>{userInfo.name}</span>
+                  }
                   id='username'
-                  style={{ color: 'white' }}
                 >
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item style={{ color: 'white' }}>
@@ -53,7 +54,10 @@ const Header = () => {
                 </LinkContainer>
               )}
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title='Admin' id='adminmenu'>
+                <NavDropdown
+                  title={<span style={{ color: 'white' }}>Admin</span>}
+                  id='adminmenu'
+                >
                   <LinkContainer to='/admin/userlist'>
                     <NavDropdown.Item>Users</NavDropdown.Item>
                   </LinkContainer>
