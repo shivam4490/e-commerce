@@ -21,6 +21,11 @@ const OrderScreen = ({ match, history }) => {
   const orderPay = useSelector((state) => state.orderPay)
   const { loading: loadingPay, success: successPay } = orderPay
 
+  console.log(orderPay)
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   if (!loading) {
     //   Calculate prices
     const addDecimals = (num) => {
@@ -33,7 +38,9 @@ const OrderScreen = ({ match, history }) => {
   }
 
   useEffect(() => {
-    dispatch(getOrderDetails(orderId))
+    if (!userInfo) {
+      history.push('/login')
+    }
 
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal')
@@ -46,9 +53,9 @@ const OrderScreen = ({ match, history }) => {
       }
       document.body.appendChild(script)
     }
-
     if (!order || successPay || order._id !== orderId) {
-      dispatch({ type: ORDER_PAY_RESET })
+      dispatch({ type: ORDER_PAY_RESET }) // prevent loop
+
       dispatch(getOrderDetails(orderId))
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -57,7 +64,7 @@ const OrderScreen = ({ match, history }) => {
         setSdkReady(true)
       }
     }
-  }, [dispatch, orderId, successPay])
+  }, [dispatch, orderId, successPay, order, history, userInfo])
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)
@@ -104,8 +111,11 @@ const OrderScreen = ({ match, history }) => {
                 <strong>Method: </strong>
                 {order.paymentMethod}
               </p>
-              {order.isPaid ? (
-                <Message variant='success'>Paid on {order.paidAt}</Message>
+              {orderPay.error ? (
+                <Message variant='success'>
+                  Paid on {new Date().getDate()} /{new Date().getMonth()} /
+                  {new Date().getFullYear()}
+                </Message>
               ) : (
                 <Message variant='danger'>Not Paid</Message>
               )}
@@ -174,7 +184,7 @@ const OrderScreen = ({ match, history }) => {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {!order.isPaid && (
+              {!orderPay.error && (
                 <ListGroup.Item>
                   <PayPalButton
                     amount={order.totalPrice}
